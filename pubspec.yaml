@@ -1,0 +1,83 @@
+name: peerly
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.12.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management (Reactive state across many concurrent streams)
+  riverpod: ^2.5.1
+  flutter_riverpod: ^2.5.1
+
+  # Dependency injection (Service locator + codegen to reduce boilerplate)
+  get_it: ^9.2.1
+  injectable: ^3.0.0
+
+  # Networking (HTTP client with interceptors/retry; readable logs)
+  dio: ^5.10.0
+  pretty_dio_logger: ^1.4.0 
+
+  # Connectivity (Detects offline→online transitions for deferred verification)
+  connectivity_plus: ^7.2.0 
+
+  # Local database (Fast, schema-flexible NoSQL store for messages/notes/peers)
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+
+  # Secure storage (Keychain/Keystore-backed storage for keys and tokens)
+  flutter_secure_storage: ^10.3.1
+
+  # Encryption (X25519 key exchange + AES-256-GCM, audited-adjacent implementation)
+  cryptography: ^2.9.0
+ 
+  # Nearby transport (Wraps Android Nearby Connections + iOS MultipeerConnectivity)
+  flutter_nearby_connections: ^1.1.2 
+
+  # LAN discovery (mDNS discovery for same-WiFi (non-P2P) peers)
+  multicast_dns: ^0.3.3+1
+  # multicast_dns or bonsoir 
+
+  # Collaborative notes (Conflict-free text merging for offline collaborative notes)
+  y_crdt: ^0.0.1
+
+  # PDF export (Generate PDFs from your own note data model)
+  pdf: ^3.13.0  
+  printing: ^5.15.0 
+
+  # Immutable models (Value equality + serialization for Message/Note/Peer/Room)
+  freezed: ^3.2.5
+  json_serializable: ^6.14.0
+ 
+  # Permissions (Runtime Bluetooth/Location/Storage permission requests)
+  permission_handler: ^12.0.3 
+
+  # Notifications (Local alerts + push wake-up for internet relay)
+  # flutter_local_notifications, firebase_messaging 
+
+  # Media (Picking/storing images attached to notes)
+  image_picker: ^1.2.3
+  path_provider: ^2.1.6
+  mime: ^2.0.0
+
+  # IDs (Generating room IDs, message IDs, peer IDs)
+  uuid: ^4.5.3
+
+  # Cloud backup (Google Drive backup (Android); iCloud deferred to later)
+  google_sign_in: ^7.2.0
+  googleapis: ^16.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  injectable_generator: ^3.1.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.15.0
+
+flutter:
+  uses-material-design: true
