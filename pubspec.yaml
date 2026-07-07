@@ -31,6 +31,7 @@ dependencies:
 
   # Secure storage (Keychain/Keystore-backed storage for keys and tokens)
   flutter_secure_storage: ^10.3.1
+  shared_preferences: ^2.5.5
 
   # Encryption (X25519 key exchange + AES-256-GCM, audited-adjacent implementation)
   cryptography: ^2.9.0
@@ -43,7 +44,7 @@ dependencies:
   # multicast_dns or bonsoir 
 
   # Collaborative notes (Conflict-free text merging for offline collaborative notes)
-  y_crdt: ^0.0.1
+  # y_crdt: ^0.0.1
 
   # PDF export (Generate PDFs from your own note data model)
   pdf: ^3.13.0  
@@ -75,9 +76,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  injectable_generator: ^3.1.0
-  isar_generator: ^3.1.0+1
+  # injectable_generator: ^3.1.0
+  # isar_generator: ^3.1.0+1
   build_runner: ^2.15.0
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
