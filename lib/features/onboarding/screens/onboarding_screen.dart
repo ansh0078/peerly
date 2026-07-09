@@ -62,7 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.only(right: 20, top: 8),
                 child: TextButton(
                   onPressed: _complete,
-                  child: const Text('Skip', style: TextStyle(color: Colors.black54)),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(color: Colors.black54),
+                  ),
                 ),
               ),
             ),
@@ -71,7 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 controller: _pageController,
                 itemCount: onboardingPages.length,
                 onPageChanged: (index) => setState(() => _currentPage = index),
-                itemBuilder: (context, index) => OnboardingPageView(data: onboardingPages[index]),
+                itemBuilder: (context, index) =>
+                    OnboardingPageView(data: onboardingPages[index]),
               ),
             ),
             OnboardingDotIndicator(
@@ -88,7 +92,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF4F46E5),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +108,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Icon(Icons.arrow_forward, color: Colors.white, size: 18),
+                      const Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 18,
+                      ),
                     ],
                   ),
                 ),

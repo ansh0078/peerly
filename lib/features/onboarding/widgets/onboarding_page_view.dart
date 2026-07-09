@@ -18,24 +18,17 @@ class OnboardingPageView extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(28),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 20,
-                    offset: const Offset(0, 8),
-                  ),
-                ],
+                borderRadius: BorderRadius.circular(16),
               ),
-              padding: const EdgeInsets.all(16),
-              // This references the illustration you already added to
-              // assets/. Update the path in onboarding_page_data.dart if
-              // your filename is different.
               child: Image.asset(
                 data.imageAsset,
-                fit: BoxFit.contain,
+                fit: BoxFit.fill,
                 errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Icon(Icons.image_not_supported_outlined, color: Colors.grey, size: 40),
+                  child: Icon(
+                    Icons.image_not_supported_outlined,
+                    color: Colors.grey,
+                    size: 40,
+                  ),
                 ),
               ),
             ),
@@ -44,13 +37,21 @@ class OnboardingPageView extends StatelessWidget {
           Text(
             data.title,
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 1.3),
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              height: 1.3,
+            ),
           ),
           const SizedBox(height: 12),
           Text(
             data.description,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey[600], height: 1.5),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey[600],
+              height: 1.5,
+            ),
           ),
           if (data.badges != null) ...[
             const SizedBox(height: 20),
@@ -59,14 +60,20 @@ class OnboardingPageView extends StatelessWidget {
               children: [
                 for (final badge in data.badges!) ...[
                   Icon(
-                    badge.contains('BLUETOOTH') ? Icons.bluetooth : Icons.wifi_tethering,
+                    badge.contains('BLUETOOTH')
+                        ? Icons.bluetooth
+                        : Icons.wifi_tethering,
                     size: 14,
                     color: Colors.grey[500],
                   ),
                   const SizedBox(width: 4),
                   Text(
                     badge,
-                    style: TextStyle(fontSize: 11, color: Colors.grey[500], letterSpacing: 0.5),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey[500],
+                      letterSpacing: 0.5,
+                    ),
                   ),
                   const SizedBox(width: 16),
                 ],

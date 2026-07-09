@@ -12,30 +12,37 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource(this._client);
 
-  Future<AuthUser> signUp({required String name, required String email, required String password}) async {
+  Future<AuthUser> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     try {
-      final res = await _client.dio.post(ApiEndpoints.signUp, data: {
-        'name': name,
-        'email': email,
-        'password': password,
-      });
+      final res = await _client.dio.post(
+        ApiEndpoints.signUp,
+        data: {'name': name, 'email': email, 'password': password},
+      );
       return AuthUser(
         id: res.data['id'] as String,
         name: name,
         email: email,
-        isVerified: false, // OTP step confirms it -- never true right after signup
+        isVerified:
+            false, // OTP step confirms it -- never true right after signup
       );
     } on DioException catch (e) {
       throw _client.mapError(e);
     }
   }
 
-  Future<AuthUser> signIn({required String email, required String password}) async {
+  Future<AuthUser> signIn({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final res = await _client.dio.post(ApiEndpoints.signIn, data: {
-        'email': email,
-        'password': password,
-      });
+      final res = await _client.dio.post(
+        ApiEndpoints.signIn,
+        data: {'email': email, 'password': password},
+      );
       return AuthUser(
         id: res.data['id'] as String,
         name: res.data['name'] as String,
@@ -48,12 +55,15 @@ class AuthRemoteDataSource {
     }
   }
 
-  Future<AuthUser> verifyOtp({required String email, required String code}) async {
+  Future<AuthUser> verifyOtp({
+    required String email,
+    required String code,
+  }) async {
     try {
-      final res = await _client.dio.post(ApiEndpoints.verifyOtp, data: {
-        'email': email,
-        'code': code,
-      });
+      final res = await _client.dio.post(
+        ApiEndpoints.verifyOtp,
+        data: {'email': email, 'code': code},
+      );
       return AuthUser(
         id: res.data['id'] as String,
         name: res.data['name'] as String,
@@ -76,7 +86,10 @@ class AuthRemoteDataSource {
 
   Future<void> sendPasswordResetCode({required String email}) async {
     try {
-      await _client.dio.post(ApiEndpoints.forgotPassword, data: {'email': email});
+      await _client.dio.post(
+        ApiEndpoints.forgotPassword,
+        data: {'email': email},
+      );
     } on DioException catch (e) {
       throw _client.mapError(e);
     }

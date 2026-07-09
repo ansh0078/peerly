@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final results = await Future.wait([
       getIt<OnboardingStatusService>().hasSeenOnboarding(),
       getIt<SecureStorageService>().readAuthToken(),
-      Future.delayed(const Duration(milliseconds: 1400)), // minimum splash duration
+      Future.delayed(const Duration(seconds: 3)), // minimum splash duration
     ]);
     final hasSeenOnboarding = results[0] as bool;
     final authToken = results[1] as String?;
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (authToken != null) {
       widget.onNavigateToHome();
     } else if (hasSeenOnboarding) {
-      widget.onNavigateToWelcome();
+      widget.onNavigateToOnboarding();
     } else {
       widget.onNavigateToOnboarding();
     }
@@ -57,23 +57,26 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: const Color(0xFFF9FAFB),
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(flex: 3),
-            Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [const Color(0xFF4F46E5).withOpacity(0.15), Colors.transparent],
+            Center(
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    colors: [const Color(0xFF4F46E5).withAlpha(60 ), Colors.white38],
+                  ),
                 ),
-              ),
-              padding: const EdgeInsets.all(40),
-              child: Image.asset(
-                'assets/logo/peerly_logo.png',
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.hub_outlined, size: 64, color: Color(0xFF4F46E5)),
+                padding: const EdgeInsets.all(40),
+                child: Image.asset(
+                  'assets/logo/peerly_logo.png',
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.hub_outlined, size: 64, color: Color(0xFF4F46E5)),
+                ),
               ),
             ),
             const SizedBox(height: 16),

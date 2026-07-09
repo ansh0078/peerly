@@ -1,5 +1,5 @@
 import 'package:peerly/core/entities/activity_feed_item.dart';
-import 'package:peerly/features/rooms/domain/rooms_repository.dart';
+import 'package:peerly/features/rooms/data/rooms_repository.dart';
 
 class RoomsRepositoryImpl implements RoomsRepository {
   @override

@@ -1,7 +1,7 @@
 
 import 'package:peerly/features/notes/domain/notes_repository.dart';
+import 'package:peerly/features/rooms/data/rooms_repository.dart';
 
-import '../../rooms/domain/rooms_repository.dart';
 import '../domain/dashboard_repository.dart';
 import '../../../core/entities/peer.dart';
 import '../../../core/entities/activity_feed_item.dart';

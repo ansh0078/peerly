@@ -22,17 +22,30 @@ class AuthRepositoryImpl implements AuthRepository {
     required AuthRemoteDataSource remote,
     required ConnectivityService connectivity,
     required SecureStorageService secureStorage,
-  })  : _remote = remote,
-        _connectivity = connectivity,
-        _secureStorage = secureStorage;
+  }) : _remote = remote,
+       _connectivity = connectivity,
+       _secureStorage = secureStorage;
 
   @override
-  Future<AuthUser> signUp({required String name, required String email, required String password}) async {
+  Future<AuthUser> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     final online = await _connectivity.isOnline();
 
     if (!online) {
-      final user = AuthUser(id: _uuid.v4(), name: name, email: email, isVerified: false);
-      await _secureStorage.savePendingUser(name: name, email: email, password: password);
+      final user = AuthUser(
+        id: _uuid.v4(),
+        name: name,
+        email: email,
+        isVerified: false,
+      );
+      await _secureStorage.savePendingUser(
+        name: name,
+        email: email,
+        password: password,
+      );
       return user;
     }
 
@@ -40,7 +53,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthUser> signIn({required String email, required String password}) async {
+  Future<AuthUser> signIn({
+    required String email,
+    required String password,
+  }) async {
     final online = await _connectivity.isOnline();
     if (!online) throw const NoInternetException();
 
@@ -52,7 +68,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthUser> verifyOtp({required String email, required String code}) async {
+  Future<AuthUser> verifyOtp({
+    required String email,
+    required String code,
+  }) async {
     final user = await _remote.verifyOtp(email: email, code: code);
     if (user.token != null) {
       await _secureStorage.saveAuthToken(user.token!);
@@ -62,8 +81,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> resendOtp({required String email}) => _remote.resendOtp(email: email);
+  Future<void> resendOtp({required String email}) =>
+      _remote.resendOtp(email: email);
 
   @override
-  Future<void> sendPasswordResetCode({required String email}) => _remote.sendPasswordResetCode(email: email);
+  Future<void> sendPasswordResetCode({required String email}) =>
+      _remote.sendPasswordResetCode(email: email);
 }

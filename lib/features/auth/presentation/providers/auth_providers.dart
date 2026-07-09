@@ -4,7 +4,9 @@ import '../../../../core/session/current_user_provider.dart';
 import '../../domain/entities/auth_user.dart';
 import '../../domain/repositories/auth_repository.dart';
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) => getIt<AuthRepository>());
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => getIt<AuthRepository>(),
+);
 
 /// One controller shared by Sign Up, Sign In, and OTP screens -- they
 /// all call a method here and watch the same AsyncValue for loading/
@@ -14,10 +16,16 @@ class AuthController extends AsyncNotifier<void> {
   @override
   Future<void> build() async {}
 
-  Future<bool> signUp({required String name, required String email, required String password}) async {
+  Future<bool> signUp({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
     state = const AsyncLoading();
     final result = await AsyncValue.guard(
-      () => ref.read(authRepositoryProvider).signUp(name: name, email: email, password: password),
+      () => ref
+          .read(authRepositoryProvider)
+          .signUp(name: name, email: email, password: password),
     );
     _applyResult(result);
     return !result.hasError;
@@ -26,7 +34,9 @@ class AuthController extends AsyncNotifier<void> {
   Future<bool> signIn({required String email, required String password}) async {
     state = const AsyncLoading();
     final result = await AsyncValue.guard(
-      () => ref.read(authRepositoryProvider).signIn(email: email, password: password),
+      () => ref
+          .read(authRepositoryProvider)
+          .signIn(email: email, password: password),
     );
     _applyResult(result);
     return !result.hasError;
@@ -35,7 +45,8 @@ class AuthController extends AsyncNotifier<void> {
   Future<bool> verifyOtp({required String email, required String code}) async {
     state = const AsyncLoading();
     final result = await AsyncValue.guard(
-      () => ref.read(authRepositoryProvider).verifyOtp(email: email, code: code),
+      () =>
+          ref.read(authRepositoryProvider).verifyOtp(email: email, code: code),
     );
     _applyResult(result);
     return !result.hasError;
@@ -44,9 +55,12 @@ class AuthController extends AsyncNotifier<void> {
   Future<bool> sendPasswordResetCode({required String email}) async {
     state = const AsyncLoading();
     final result = await AsyncValue.guard(
-      () => ref.read(authRepositoryProvider).sendPasswordResetCode(email: email),
+      () =>
+          ref.read(authRepositoryProvider).sendPasswordResetCode(email: email),
     );
-    state = result.hasError ? AsyncError(result.error!, result.stackTrace!) : const AsyncData(null);
+    state = result.hasError
+        ? AsyncError(result.error!, result.stackTrace!)
+        : const AsyncData(null);
     return !result.hasError;
   }
 
@@ -72,4 +86,6 @@ class AuthController extends AsyncNotifier<void> {
   }
 }
 
-final authControllerProvider = AsyncNotifierProvider<AuthController, void>(AuthController.new);
+final authControllerProvider = AsyncNotifierProvider<AuthController, void>(
+  AuthController.new,
+);

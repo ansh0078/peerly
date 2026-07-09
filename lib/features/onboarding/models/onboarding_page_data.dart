@@ -18,7 +18,7 @@ class OnboardingPageData {
 
 const List<OnboardingPageData> onboardingPages = [
   OnboardingPageData(
-    imageAsset: 'assets/onboarding/connectivity.png',
+    imageAsset: 'assets/images/onboarding_1.png',
     title: 'Always Connected, No\nInternet Needed',
     description:
         'Chat reliably with peers nearby using Bluetooth, BLE, and Wi-Fi Direct. '
@@ -26,14 +26,14 @@ const List<OnboardingPageData> onboardingPages = [
     badges: ['BLUETOOTH', 'WI-FI DIRECT'],
   ),
   OnboardingPageData(
-    imageAsset: 'assets/onboarding/collaborate.png',
+    imageAsset: 'assets/images/onboarding_2.png',
     title: 'Collaborate in Local Rooms',
     description:
         'Create study groups that work anywhere. Share messages, coordinates, '
         'and files within your local mesh network as easily as a standard chat.',
   ),
   OnboardingPageData(
-    imageAsset: 'assets/onboarding/shared_notes.png',
+    imageAsset: 'assets/images/onboarding_3.png',
     title: 'Powerful Shared Notes',
     description:
         'Write, edit, and collaborate on notes with multiple users in real-time. '

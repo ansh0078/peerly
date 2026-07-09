@@ -27,7 +27,6 @@ dependencies:
 
   # Local database (Fast, schema-flexible NoSQL store for messages/notes/peers)
   isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
 
   # Secure storage (Keychain/Keystore-backed storage for keys and tokens)
   flutter_secure_storage: ^10.3.1
@@ -36,11 +35,17 @@ dependencies:
   # Encryption (X25519 key exchange + AES-256-GCM, audited-adjacent implementation)
   cryptography: ^2.9.0
  
-  # Nearby transport (Wraps Android Nearby Connections + iOS MultipeerConnectivity)
-  flutter_nearby_connections: ^1.1.2 
+  # Discover nearby devices & transfer files
+  nearby_connections: ^4.3.0
+
+  # Direct Wi-Fi P2P communication
+  flutter_p2p_connection: ^3.0.3
+
+  # Bluetooth communication
+  flutter_blue_plus: ^2.3.10
 
   # LAN discovery (mDNS discovery for same-WiFi (non-P2P) peers)
-  multicast_dns: ^0.3.3+1
+  bonsoir: ^7.1.4
   # multicast_dns or bonsoir 
 
   # Collaborative notes (Conflict-free text merging for offline collaborative notes)
@@ -50,12 +55,12 @@ dependencies:
   pdf: ^3.13.0  
   printing: ^5.15.0 
 
-  # Immutable models (Value equality + serialization for Message/Note/Peer/Room)
-  freezed: ^3.2.5
-  json_serializable: ^6.14.0
+  # # Immutable models (Value equality + serialization for Message/Note/Peer/Room)
+  # freezed_annotation: ^3.1.0
+  # json_annotation: ^4.9.0
  
   # Permissions (Runtime Bluetooth/Location/Storage permission requests)
-  permission_handler: ^12.0.3 
+  permission_handler: ^11.3.1 
 
   # Notifications (Local alerts + push wake-up for internet relay)
   # flutter_local_notifications, firebase_messaging 
@@ -69,16 +74,16 @@ dependencies:
   uuid: ^4.5.3
 
   # Cloud backup (Google Drive backup (Android); iCloud deferred to later)
-  google_sign_in: ^7.2.0
-  googleapis: ^16.0.0
+  # google_sign_in: ^7.2.0
+  # googleapis: ^16.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   # injectable_generator: ^3.1.0
-  # isar_generator: ^3.1.0+1
-  build_runner: ^2.15.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.13
 
 flutter:
   uses-material-design: true

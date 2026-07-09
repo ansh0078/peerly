@@ -5,7 +5,7 @@ import 'package:peerly/features/dashboard/data/dashboard_repository_impl.dart';
 import 'package:peerly/features/dashboard/domain/dashboard_repository.dart';
 import 'package:peerly/features/notes/data/notes_repository_impl.dart';
 import 'package:peerly/features/notes/domain/notes_repository.dart';
-import 'package:peerly/features/rooms/domain/rooms_repository.dart';
+import 'package:peerly/features/rooms/data/rooms_repository.dart';
 import 'package:peerly/features/rooms/domain/rooms_repository_impl.dart';
 import '../network/dio_client.dart';
 import '../network/connectivity_service.dart';

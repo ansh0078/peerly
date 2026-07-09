@@ -8,7 +8,7 @@ import 'package:peerly/core/di/injection.dart';
 
 void main() {
   setupDependencies(); // GetIt wiring happens once, before anything else
-  runApp(const PeerlyApp());
+  runApp(ProviderScope(child: const PeerlyApp()));
 }
 
 class PeerlyApp extends ConsumerWidget {

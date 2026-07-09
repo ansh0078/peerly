@@ -59,16 +59,23 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 Text(
                   'Create Account',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Join the offline-first campus network',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Theme.of(context).textTheme.bodyMedium?.color),
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
+                  ),
                 ),
                 const SizedBox(height: 24),
-                if (authState.hasError) AppErrorBanner(message: controller.errorMessage ?? 'Something went wrong'),
+                if (authState.hasError)
+                  AppErrorBanner(
+                    message: controller.errorMessage ?? 'Something went wrong',
+                  ),
                 AppTextField(
                   label: 'Full Name',
                   hint: 'Jane Doe',
@@ -97,7 +104,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 const SizedBox(height: 20),
                 Text(
                   'By signing up, you agree to our Terms of Service and Privacy Policy.',
-                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
+                  ),
                 ),
                 const SizedBox(height: 20),
                 AppButton(
@@ -130,7 +140,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     const Expanded(child: Divider()),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text('OR CONTINUE WITH', style: TextStyle(fontSize: 11, color: Theme.of(context).textTheme.bodySmall?.color)),
+                      child: Text(
+                        'OR CONTINUE WITH',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
+                        ),
+                      ),
                     ),
                     const Expanded(child: Divider()),
                   ],
@@ -138,19 +154,36 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    Expanded(child: SocialAuthButton(label: 'Google', icon: const Icon(Icons.g_mobiledata, size: 22))),
+                    Expanded(
+                      child: SocialAuthButton(
+                        label: 'Google',
+                        icon: const Icon(Icons.g_mobiledata, size: 22),
+                      ),
+                    ),
                     const SizedBox(width: 12),
-                    Expanded(child: SocialAuthButton(label: 'Apple', icon: const Icon(Icons.apple, size: 20))),
+                    Expanded(
+                      child: SocialAuthButton(
+                        label: 'Apple',
+                        icon: const Icon(Icons.apple, size: 20),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 20),
                 Center(
                   child: TextButton(
                     onPressed: widget.onSignIn,
-                    child: const Text.rich(TextSpan(
-                      text: 'Already have an account? ',
-                      children: [TextSpan(text: 'Sign In', style: TextStyle(fontWeight: FontWeight.bold))],
-                    )),
+                    child: const Text.rich(
+                      TextSpan(
+                        text: 'Already have an account? ',
+                        children: [
+                          TextSpan(
+                            text: 'Sign In',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
