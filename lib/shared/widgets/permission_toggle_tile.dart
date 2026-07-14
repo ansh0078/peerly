@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peerly/app/theme/app_colors.dart';
 
 /// One row on the Device Setup & Permissions screen. Kept generic
 /// enough to reuse for the same "toggle with description" pattern in
@@ -22,20 +21,23 @@ class PermissionToggleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.colorScheme.primary;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: const Border(left: BorderSide(color: AppColors.primary, width: 3)),
+        border: Border(left: BorderSide(color: primaryColor, width: 3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
-            backgroundColor: AppColors.primary.withOpacity(0.1),
-            child: Icon(icon, color: AppColors.primary, size: 20),
+            backgroundColor: primaryColor.withValues(alpha: 0.1),
+            child: Icon(icon, color: primaryColor, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -46,12 +48,16 @@ class PermissionToggleTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   description,
-                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
+                  style: TextStyle(fontSize: 12, color: theme.textTheme.bodySmall?.color),
                 ),
               ],
             ),
           ),
-          Switch(value: value, onChanged: onChanged, activeColor: AppColors.primary),
+          Switch(
+            value: value,
+            onChanged: onChanged,
+            activeThumbColor: primaryColor,
+          ),
         ],
       ),
     );

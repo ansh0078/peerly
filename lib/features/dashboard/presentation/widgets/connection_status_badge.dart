@@ -16,11 +16,22 @@ class ConnectionStatusBadge extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final isActive = ref.watch(meshActiveProvider).valueOrNull ?? false;
+
+    final bgColor = isActive
+        ? Colors.green.withValues(alpha: 0.15)
+        : (isDark ? theme.colorScheme.surfaceContainer : const Color(0xFFF3F4F6));
+
+    final contentColor = isActive
+        ? (isDark ? Colors.greenAccent : const Color(0xFF166534))
+        : (isDark ? Colors.grey[400] : Colors.grey[700]);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: isActive ? const Color(0xFFDCFCE7) : const Color(0xFFF3F4F6),
+        color: bgColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -32,7 +43,7 @@ class ConnectionStatusBadge extends ConsumerWidget {
             isActive ? 'Mesh Active' : 'Offline',
             style: TextStyle(
               fontSize: 12,
-              color: isActive ? const Color(0xFF166534) : Colors.grey[700],
+              color: contentColor,
             ),
           ),
         ],

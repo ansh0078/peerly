@@ -44,7 +44,7 @@ class AppSnackbar {
       message: message,
       actionLabel: actionLabel,
       onAction: onAction,
-      border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+      border: Border.all(color: AppColors.warning.withValues(alpha: 0.3)),
     );
   }
 

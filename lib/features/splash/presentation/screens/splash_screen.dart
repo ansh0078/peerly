@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:peerly/core/database/onboarding_status_service.dart';
 import 'package:peerly/core/database/secure_storage_service.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../core/session/current_user_provider.dart';
+import '../../../auth/domain/entities/auth_user.dart';
 
 /// Splash has no domain/data layer of its own -- its only job is a
 /// brief brand moment plus one routing decision, now with three
@@ -9,7 +13,7 @@ import '../../../../core/di/injection.dart';
 /// 1. Already has a saved auth token -> straight to Dashboard.
 /// 2. No token, but has seen onboarding before -> straight to Welcome.
 /// 3. First launch ever -> Onboarding.
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({
     super.key,
     required this.onNavigateToOnboarding,
@@ -22,10 +26,10 @@ class SplashScreen extends StatefulWidget {
   final VoidCallback onNavigateToHome;
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -36,16 +40,33 @@ class _SplashScreenState extends State<SplashScreen> {
     final results = await Future.wait([
       getIt<OnboardingStatusService>().hasSeenOnboarding(),
       getIt<SecureStorageService>().readAuthToken(),
+      getIt<SecureStorageService>().readPendingUser(),
+      getIt<SecureStorageService>().readAuthUser(),
       Future.delayed(const Duration(seconds: 3)), // minimum splash duration
     ]);
     final hasSeenOnboarding = results[0] as bool;
     final authToken = results[1] as String?;
+    final pendingUser = results[2] as Map<String, String>?;
+    final authUser = results[3] as AuthUser?;
 
     if (!mounted) return;
     if (authToken != null) {
+      if (authUser != null) {
+        ref.read(currentUserProvider.notifier).state = authUser;
+      }
+      widget.onNavigateToHome();
+    } else if (pendingUser != null) {
+      // Restore offline pending user session
+      final user = AuthUser(
+        id: const Uuid().v4(),
+        name: pendingUser['name'] ?? '',
+        email: pendingUser['email'] ?? '',
+        isVerified: false,
+      );
+      ref.read(currentUserProvider.notifier).state = user;
       widget.onNavigateToHome();
     } else if (hasSeenOnboarding) {
-      widget.onNavigateToOnboarding();
+      widget.onNavigateToWelcome();
     } else {
       widget.onNavigateToOnboarding();
     }

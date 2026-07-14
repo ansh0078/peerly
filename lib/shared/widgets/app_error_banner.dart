@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:peerly/app/theme/app_colors.dart';
 
 /// Inline, form-level error -- shown above the submit button when a
 /// request fails (wrong password, server error, etc.). Distinct from
@@ -11,19 +10,23 @@ class AppErrorBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final errorColor = theme.colorScheme.error;
+    final errorBg = theme.colorScheme.errorContainer;
+
     return Container(
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: AppColors.errorBackground,
+        color: errorBg,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
-          const Icon(Icons.error_outline, color: AppColors.error, size: 18),
+          Icon(Icons.error_outline, color: errorColor, size: 18),
           const SizedBox(width: 8),
           Expanded(
-            child: Text(message, style: const TextStyle(color: AppColors.error, fontSize: 13)),
+            child: Text(message, style: TextStyle(color: errorColor, fontSize: 13)),
           ),
         ],
       ),

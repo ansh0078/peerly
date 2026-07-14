@@ -25,14 +25,16 @@ class DashboardScreen extends ConsumerWidget {
     // this, exactly like it borrows connection status.
     final userName = ref.watch(currentUserProvider)?.name ?? 'there';
 
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F7FA),
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colorScheme.surface,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Peerly',
-          style: TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.bold),
+          style: TextStyle(color: theme.colorScheme.primary, fontWeight: FontWeight.bold),
         ),
         actions: const [
           Padding(
@@ -54,9 +56,9 @@ class DashboardScreen extends ConsumerWidget {
                 style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              const Text(
+              Text(
                 "You're connected to the Campus Mesh.",
-                style: TextStyle(color: Colors.black54),
+                style: TextStyle(color: theme.textTheme.bodyMedium?.color),
               ),
               const SizedBox(height: 16),
               Row(
@@ -111,16 +113,17 @@ class _NearbyNowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+      decoration: BoxDecoration(color: theme.colorScheme.surface, borderRadius: BorderRadius.circular(16)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Nearby Now', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           if (peers.isEmpty)
-            const Text('No one nearby yet.', style: TextStyle(color: Colors.black54))
+            Text('No one nearby yet.', style: TextStyle(color: theme.textTheme.bodyMedium?.color))
           else
             for (final peer in peers) NearbyPeerTile(peer: peer),
           const SizedBox(height: 8),

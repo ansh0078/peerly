@@ -13,18 +13,16 @@ import '../../../../core/network/network_exceptions.dart';
 /// immediately, with verification deferred until connectivity returns
 /// (see VerificationReminderListener).
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSource _remote;
-  final ConnectivityService _connectivity;
-  final SecureStorageService _secureStorage;
+  final AuthRemoteDataSource remote;
+  final ConnectivityService connectivity;
+  final SecureStorageService secureStorage;
   final _uuid = const Uuid();
 
   AuthRepositoryImpl({
-    required AuthRemoteDataSource remote,
-    required ConnectivityService connectivity,
-    required SecureStorageService secureStorage,
-  }) : _remote = remote,
-       _connectivity = connectivity,
-       _secureStorage = secureStorage;
+    required this.remote,
+    required this.connectivity,
+    required this.secureStorage,
+  });
 
   @override
   Future<AuthUser> signUp({
@@ -32,7 +30,7 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final online = await _connectivity.isOnline();
+    final online = await connectivity.isOnline();
 
     if (!online) {
       final user = AuthUser(
@@ -41,7 +39,7 @@ class AuthRepositoryImpl implements AuthRepository {
         email: email,
         isVerified: false,
       );
-      await _secureStorage.savePendingUser(
+      await secureStorage.savePendingUser(
         name: name,
         email: email,
         password: password,
@@ -49,7 +47,7 @@ class AuthRepositoryImpl implements AuthRepository {
       return user;
     }
 
-    return _remote.signUp(name: name, email: email, password: password);
+    return remote.signUp(name: name, email: email, password: password);
   }
 
   @override
@@ -57,13 +55,14 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final online = await _connectivity.isOnline();
+    final online = await connectivity.isOnline();
     if (!online) throw const NoInternetException();
 
-    final user = await _remote.signIn(email: email, password: password);
+    final user = await remote.signIn(email: email, password: password);
     if (user.token != null) {
-      await _secureStorage.saveAuthToken(user.token!);
+      await secureStorage.saveAuthToken(user.token!);
     }
+    await secureStorage.saveAuthUser(user);
     return user;
   }
 
@@ -72,19 +71,20 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String code,
   }) async {
-    final user = await _remote.verifyOtp(email: email, code: code);
+    final user = await remote.verifyOtp(email: email, code: code);
     if (user.token != null) {
-      await _secureStorage.saveAuthToken(user.token!);
+      await secureStorage.saveAuthToken(user.token!);
     }
-    await _secureStorage.clearPendingUser();
+    await secureStorage.saveAuthUser(user);
+    await secureStorage.clearPendingUser();
     return user;
   }
 
   @override
   Future<void> resendOtp({required String email}) =>
-      _remote.resendOtp(email: email);
+      remote.resendOtp(email: email);
 
   @override
   Future<void> sendPasswordResetCode({required String email}) =>
-      _remote.sendPasswordResetCode(email: email);
+      remote.sendPasswordResetCode(email: email);
 }

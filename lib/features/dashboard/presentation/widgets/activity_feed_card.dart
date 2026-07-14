@@ -11,14 +11,15 @@ class ActivityFeedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final isNote = item.type == ActivityType.noteShared;
-    final accentColor = isNote ? const Color(0xFF4F46E5) : const Color(0xFF0F6E56);
+    final accentColor = isNote ? theme.colorScheme.primary : theme.colorScheme.secondary;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border(left: BorderSide(color: accentColor, width: 4)),
       ),
@@ -27,7 +28,7 @@ class ActivityFeedCard extends StatelessWidget {
         children: [
           Text(item.title, style: const TextStyle(fontWeight: FontWeight.w600)),
           const SizedBox(height: 4),
-          Text(item.subtitle, style: TextStyle(color: Colors.grey[700], fontSize: 13)),
+          Text(item.subtitle, style: TextStyle(color: theme.textTheme.bodySmall?.color, fontSize: 13)),
           const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerLeft,

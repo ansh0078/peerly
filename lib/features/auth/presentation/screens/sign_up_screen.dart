@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/di/injection.dart';
+import '../../../../core/network/connectivity_service.dart';
 import '../../../../core/validators/validators.dart';
-import '../../../../core/session/current_user_provider.dart';
 import '../../../../shared/widgets/app_text_field.dart';
 import '../../../../shared/widgets/app_button.dart';
 import '../../../../shared/widgets/app_error_banner.dart';
+import '../../../../shared/widgets/app_snackbar.dart';
 import '../../../../shared/widgets/social_auth_button.dart';
 import '../providers/auth_providers.dart';
 
@@ -123,11 +125,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                     );
                     if (!context.mounted || !success) return;
 
-                    // AuthRepositoryImpl already decided online vs.
-                    // offline -- this screen just reads the result off
-                    // the shared session to decide where to navigate.
-                    final user = ref.read(currentUserProvider);
-                    if (user != null && !user.isVerified) {
+                    final isOnline = await getIt<ConnectivityService>().isOnline();
+                    if (!context.mounted) return;
+                    if (!isOnline) {
+                      AppSnackbar.warning(
+                        context,
+                        "No internet connection. Account created locally; email verification will resume when you are online.",
+                      );
                       widget.onSignedUpOffline();
                     } else {
                       widget.onSignedUpOnline(_emailController.text.trim());

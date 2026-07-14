@@ -10,13 +10,17 @@ class NearbyPeerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.grey[300],
-            child: Text(peer.name.isNotEmpty ? peer.name[0] : '?'),
+            backgroundColor: theme.colorScheme.primaryContainer,
+            child: Text(
+              peer.name.isNotEmpty ? peer.name[0] : '?',
+              style: TextStyle(color: theme.colorScheme.onPrimaryContainer),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -27,12 +31,12 @@ class NearbyPeerTile extends StatelessWidget {
                 if (peer.department != null)
                   Text(
                     peer.department!,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                    style: TextStyle(color: theme.textTheme.bodySmall?.color, fontSize: 12),
                   ),
               ],
             ),
           ),
-          const Icon(Icons.sync_alt, size: 18, color: Color(0xFF4F46E5)),
+          Icon(Icons.sync_alt, size: 18, color: theme.colorScheme.primary),
         ],
       ),
     );

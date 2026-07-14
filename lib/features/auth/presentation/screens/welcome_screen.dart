@@ -27,8 +27,8 @@ class WelcomeScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      const Color(0xFF4F46E5).withAlpha(60),
-                      Colors.white38,
+                      Theme.of(context).colorScheme.primary.withValues(alpha: 0.23),
+                      Theme.of(context).colorScheme.surface.withValues(alpha: 0.38),
                     ],
                   ),
                 ),
@@ -36,10 +36,10 @@ class WelcomeScreen extends StatelessWidget {
                 child: Image.asset(
                   'assets/logo/peerly_logo.png',
                   fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) => const Icon(
+                  errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.hub_outlined,
                     size: 64,
-                    color: Color(0xFF4F46E5),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),

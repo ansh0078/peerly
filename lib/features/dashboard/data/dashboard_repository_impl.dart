@@ -14,26 +14,24 @@ import '../../../core/transport/transport_repository.dart';
 /// Nothing above this file needs to know that "recent activity" is
 /// really two different features' data, merged and sorted here.
 class DashboardRepositoryImpl implements DashboardRepository {
-  final TransportRepository _transport;
-  final NotesRepository _notes;
-  final RoomsRepository _rooms;
+  final TransportRepository transport;
+  final NotesRepository notes;
+  final RoomsRepository rooms;
 
   DashboardRepositoryImpl({
-    required TransportRepository transport,
-    required NotesRepository notes,
-    required RoomsRepository rooms,
-  })  : _transport = transport,
-        _notes = notes,
-        _rooms = rooms;
+    required this.transport,
+    required this.notes,
+    required this.rooms,
+  });
 
   @override
-  Stream<List<DiscoveredPeer>> watchNearbyPeers() => _transport.watchNearbyPeers();
+  Stream<List<DiscoveredPeer>> watchNearbyPeers() => transport.watchNearbyPeers();
 
   @override
   Future<List<ActivityFeedItem>> getActivityFeed() async {
     final results = await Future.wait([
-      _notes.getRecentShares(),
-      _rooms.getRecentAnnouncements(),
+      notes.getRecentShares(),
+      rooms.getRecentAnnouncements(),
     ]);
     final combined = [...results[0], ...results[1]];
     combined.sort((a, b) => b.timestamp.compareTo(a.timestamp));

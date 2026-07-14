@@ -12,6 +12,7 @@ class OnboardingDotIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(pageCount, (index) {
@@ -22,7 +23,7 @@ class OnboardingDotIndicator extends StatelessWidget {
           height: 8,
           width: isActive ? 24 : 8,
           decoration: BoxDecoration(
-            color: isActive ? const Color(0xFF4F46E5) : const Color(0xFFD9D9E3),
+            color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(4),
           ),
         );

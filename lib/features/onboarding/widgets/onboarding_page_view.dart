@@ -8,6 +8,8 @@ class OnboardingPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -17,16 +19,16 @@ class OnboardingPageView extends StatelessWidget {
             aspectRatio: 1,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.asset(
                 data.imageAsset,
                 fit: BoxFit.fill,
-                errorBuilder: (context, error, stackTrace) => const Center(
+                errorBuilder: (context, error, stackTrace) => Center(
                   child: Icon(
                     Icons.image_not_supported_outlined,
-                    color: Colors.grey,
+                    color: theme.colorScheme.onSurfaceVariant,
                     size: 40,
                   ),
                 ),
@@ -49,7 +51,7 @@ class OnboardingPageView extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.grey[600],
+              color: theme.textTheme.bodySmall?.color,
               height: 1.5,
             ),
           ),
@@ -64,14 +66,14 @@ class OnboardingPageView extends StatelessWidget {
                         ? Icons.bluetooth
                         : Icons.wifi_tethering,
                     size: 14,
-                    color: Colors.grey[500],
+                    color: theme.textTheme.bodySmall?.color,
                   ),
                   const SizedBox(width: 4),
                   Text(
                     badge,
                     style: TextStyle(
                       fontSize: 11,
-                      color: Colors.grey[500],
+                      color: theme.textTheme.bodySmall?.color,
                       letterSpacing: 0.5,
                     ),
                   ),

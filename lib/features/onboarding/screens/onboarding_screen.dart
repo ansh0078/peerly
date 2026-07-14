@@ -51,8 +51,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F7FA),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -62,9 +64,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.only(right: 20, top: 8),
                 child: TextButton(
                   onPressed: _complete,
-                  child: const Text(
+                  child: Text(
                     'Skip',
-                    style: TextStyle(color: Colors.black54),
+                    style: TextStyle(color: theme.textTheme.bodyMedium?.color),
                   ),
                 ),
               ),
@@ -90,7 +92,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: ElevatedButton(
                   onPressed: _next,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF4F46E5),
+                    backgroundColor: theme.colorScheme.primary,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),

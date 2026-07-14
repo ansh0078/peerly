@@ -17,20 +17,23 @@ class QuickActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final primaryColor = theme.colorScheme.primary;
+
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
           children: [
             CircleAvatar(
-              backgroundColor: const Color(0xFFEEEDFE),
-              child: Icon(icon, color: const Color(0xFF4F46E5)),
+              backgroundColor: primaryColor.withValues(alpha: 0.1),
+              child: Icon(icon, color: primaryColor),
             ),
             const SizedBox(height: 8),
             Text(label, style: const TextStyle(fontSize: 13)),
